@@ -1,54 +1,288 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyLinks - Tu Nombre</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keisia Santamaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+  body {
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(160deg, #c8c8c8 0%, #e8a87c 55%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2.5rem 1.25rem 3rem;
+  }
 
-    <link rel="stylesheet" href="styles.css" />
+  .card { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
+
+  .avatar-ring {
+    width: 160px; height: 160px; border-radius: 50%;
+    background: #1a1a1a; padding: 4px;
+    margin-bottom: 1.5rem; flex-shrink: 0;
+  }
+  .avatar-ring img {
+    width: 100%; height: 100%; border-radius: 50%;
+    object-fit: cover; object-position: center top; display: block;
+  }
+  .avatar-fallback {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: linear-gradient(135deg, #f472b6, #fb923c);
+    display: none; align-items: center; justify-content: center;
+    font-size: 3rem; font-weight: 800; color: white;
+  }
+
+  .name {
+    font-size: 2rem; font-weight: 800; color: #1a1a1a;
+    text-align: center; line-height: 1.15;
+    margin-bottom: 0.5rem; letter-spacing: -0.5px;
+  }
+  .role {
+    font-size: 1.05rem; font-weight: 700; color: #3a2a1a;
+    text-align: center; margin-bottom: 2.25rem; line-height: 1.4;
+  }
+  .divider {
+    width: 48px; height: 4px; background: #1a1a1a;
+    border-radius: 2px; margin-bottom: 2rem; opacity: 0.25;
+  }
+
+  .links { width: 100%; display: flex; flex-direction: column; gap: 1.1rem; }
+
+  /* ── Uiverse button adapted to Keisia's palette ── */
+  .btn {
+    all: unset;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    position: relative;
+    border-radius: 100em;
+    background-color: rgba(210, 80, 130, 0.85);
+    box-shadow:
+      -0.15em -0.15em 0.15em -0.075em rgba(180, 40, 90, 0.35),
+      0.0375em 0.0375em 0.0675em 0 rgba(100, 20, 50, 0.2);
+    display: block;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: calc(100% + 0.3em);
+    height: calc(100% + 0.3em);
+    top: -0.15em;
+    left: -0.15em;
+    border-radius: inherit;
+    background: linear-gradient(
+      -135deg,
+      rgba(120, 20, 60, 0.6),
+      transparent 20%,
+      transparent 100%
+    );
+    filter: blur(0.0125em);
+    opacity: 0.3;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  .btn .button-outer {
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    transition: box-shadow 300ms ease;
+    will-change: box-shadow;
+    box-shadow:
+      0 0.05em 0.05em -0.01em rgba(120, 20, 60, 1),
+      0 0.01em 0.01em -0.01em rgba(120, 20, 60, 0.5),
+      0.15em 0.3em 0.1em -0.01em rgba(120, 20, 60, 0.3);
+  }
+
+  .btn:hover .button-outer {
+    box-shadow:
+      0 0 0 0 rgba(120, 20, 60, 1),
+      0 0 0 0 rgba(120, 20, 60, 0.5),
+      0 0 0 0 rgba(120, 20, 60, 0.25);
+  }
+
+  .button-inner {
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 0.9em 1.5em;
+    background-image: linear-gradient(
+      135deg,
+      rgba(255, 182, 220, 1),
+      rgba(244, 114, 182, 1)
+    );
+    transition:
+      box-shadow 300ms ease,
+      clip-path 250ms ease,
+      background-image 250ms ease,
+      transform 250ms ease;
+    will-change: box-shadow, clip-path, background-image, transform;
+    overflow: clip;
+    clip-path: inset(0 0 0 0 round 100em);
+    box-shadow:
+      0 0 0 0 inset rgba(120, 20, 60, 0.1),
+      -0.05em -0.05em 0.05em 0 inset rgba(120, 20, 60, 0.25),
+      0 0 0 0 inset rgba(120, 20, 60, 0.1),
+      0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.3),
+      0.025em 0.05em 0.1em 0 inset rgba(255, 255, 255, 1),
+      0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.3),
+      -0.075em -0.25em 0.25em 0.1em inset rgba(120, 20, 60, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn:hover .button-inner {
+    clip-path: inset(
+      clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px)
+      clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) round 100em
+    );
+    box-shadow:
+      0.1em 0.15em 0.05em 0 inset rgba(120, 20, 60, 0.6),
+      -0.025em -0.03em 0.05em 0.025em inset rgba(120, 20, 60, 0.4),
+      0.25em 0.25em 0.2em 0 inset rgba(120, 20, 60, 0.4),
+      0 0 0.05em 0.5em inset rgba(255, 255, 255, 0.15),
+      0 0 0 0 inset rgba(255, 255, 255, 1),
+      0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.2),
+      -0.075em -0.12em 0.2em 0.1em inset rgba(120, 20, 60, 0.2);
+  }
+
+  .btn:active .button-inner { transform: scale(0.975); }
+
+  .btn-icon {
+    width: 20px; height: 20px; flex-shrink: 0;
+    position: relative; z-index: 4;
+    color: rgba(80, 10, 40, 0.85);
+    transition: transform 250ms ease;
+  }
+  .btn:hover .btn-icon { transform: scale(0.975); }
+
+  .btn-label {
+    flex: 1; text-align: center;
+    position: relative; z-index: 4;
+    transition: transform 250ms ease;
+    will-change: transform;
+  }
+  .btn:hover .btn-label { transform: scale(0.975); }
+
+  .btn-label span {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: rgba(0,0,0,0);
+    background-image: linear-gradient(135deg, rgba(80,10,40,1), rgba(160,40,90,1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: block;
+    text-shadow: rgba(255,255,255,0.2) 0 0 0.1em;
+    user-select: none;
+  }
+
+  .btn-label small {
+    font-size: 0.68rem; font-weight: 600;
+    color: rgba(100, 30, 60, 0.55);
+    display: block; margin-top: 1px;
+  }
+
+  .btn-arrow {
+    position: relative; z-index: 4;
+    font-size: 1rem;
+    color: rgba(120, 20, 60, 0.4);
+    transition: color 0.15s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .btn:hover .btn-arrow { color: rgba(120, 20, 60, 0.9); transform: translateX(3px); }
+
+  .footer {
+    margin-top: 2.5rem; font-size: 0.78rem;
+    color: #1a1a1a; opacity: 0.35;
+    font-weight: 600; letter-spacing: 0.05em; text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    body { padding: 4rem 2rem 5rem; }
+    .avatar-ring { width: 180px; height: 180px; }
+    .name { font-size: 2.4rem; }
+  }
+</style>
 </head>
-
 <body>
+<main class="card" role="main">
 
-    <main class="card">
+  <!-- FOTO DE PERFIL: reemplaza "tu-foto.jpg" con el nombre de tu imagen -->
+  <div class="avatar-ring" aria-hidden="true">
+    <img
+      src="foto de perfil.jpg"
+      alt="Foto de Keisia Santamaria"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+    />
+    <div class="avatar-fallback">KS</div>
+  </div>
 
-        <!-- FOTO DE PERFIL -->
-        <!-- Cambia "Tu Nombre" en el atributo alt -->
-        <img class="avatar" src="https://placehold.co/100x100/6c63ff/ffffff?text=YO" alt="Foto de Tu Nombre" width="100"
-            height="100" />
+  <h1 class="name">Keisia Santamaria</h1>
+  <p class="role">Docente de inglés &amp; Desarrolladora web</p>
+  <div class="divider" aria-hidden="true"></div>
 
-        <!-- NOMBRE Y BIO -->
-        <!-- Reemplaza el texto con tu información -->
-        <h1 class="name">Tu Nombre</h1>
-        <p class="bio">Una línea sobre ti: quién eres, qué estudias o qué te apasiona.</p>
+  <nav class="links" aria-label="Redes y contacto">
 
+    <a class="btn" href="https://www.linkedin.com/in/eli-more-940894406/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Keisia Santamaria">
+      <div class="button-outer">
+        <div class="button-inner">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+          <div class="btn-label">
+            <span>LinkedIn</span>
+            <small>linkedin.com/in/eli-more</small>
+          </div>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </div>
+      </div>
+    </a>
 
-        <!-- ENLACES -->
-        <!-- Cambia el href y el texto de cada enlace -->
-        <!-- Puedes agregar o quitar enlaces según necesites como FACEBOOK,WHATTSAP,etc cualquier medio de contacto -->
-        <nav class="links">
+    <a class="btn" href="https://github.com/emore462-eng/" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Keisia Santamaria">
+      <div class="button-outer">
+        <div class="button-inner">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+          <div class="btn-label">
+            <span>GitHub</span>
+            <small>github.com/emore462-eng</small>
+          </div>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </div>
+      </div>
+    </a>
 
-            <a href="https://github.com/tu-usuario" class="link" target="_blank">
-                GitHub
-            </a>
+    <a class="btn" href="mailto:emore462@gmail.com" aria-label="Correo de Keisia Santamaria">
+      <div class="button-outer">
+        <div class="button-inner">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="3"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+          <div class="btn-label">
+            <span>Correo</span>
+            <small>emore462@gmail.com</small>
+          </div>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </div>
+      </div>
+    </a>
 
-            <a href="mailto:tu@email.com" class="link">
-                Email
-            </a>
+  </nav>
 
-
-
-        </nav>
-
-    </main>
-
+  <p class="footer">Keisia Santamaria · Lima, Perú</p>
+</main>
 </body>
-
 </html>
