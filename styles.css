@@ -13,7 +13,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #0f0f13;
+  background-color:coral;
   color: #ffffff;
   min-height: 100vh;
   display: flex;
@@ -43,7 +43,7 @@ body {
 /* --- BIO --- */
 .bio {
   font-size: 15px;
-  color: #a0a0b0;
+  color:cornsilk;
   margin-top: 8px;
 }
 
